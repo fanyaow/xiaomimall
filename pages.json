@@ -3,7 +3,37 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				
+				"app-plus":{
+					"scrollIndicator":"none",
+					"titleNView":{
+						"searchInput":{
+							"align":"left",
+							"backgroundColor":"#F7F7F7",
+							"disabled":true,
+							"placeholder":"小米手表",
+							"borderRadius":"10px",
+							"placeholderColor":"#CCCCCC"
+						},
+						"buttons":[
+							{
+								"color":"#989898",
+								"colorPressed":"#fd6801",
+								"fontSize":"22px",
+								"float":"left",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue67a"
+							},
+							{
+								"color":"#989898",
+								"colorPressed":"#fd6801",
+								"fontSize":"22px",
+								"float":"right",
+								"fontSrc":"/static/font/iconfont.ttf",
+								"text":"\ue661"
+							}
+						]
+					}
+				}
 			}
 		}
 	    ,{
