@@ -1,29 +1,48 @@
 <template>
 	<view>
-		<!-- 轮播图组件 -->
-		<swiper-image :resdata="swipers"></swiper-image>
-	    <!-- 分类图标组件 -->
-		<index-nav :resdata="indexnavs"></index-nav>
-		<!-- 分割线组件 -->
-		<divider></divider>
-		<!-- 三图片广告展示 -->
-		<three-adv :resdata="threeadv"></three-adv>
-		<divider />
-		<!-- 基础卡片组件 -->
-		<card headTitle="每日精选" bodyCover="/static/images/demo/demo4.jpg"></card>
-		<!-- 扩展 -->
-		<!-- <card :showhead="false">
-			<block slot='title'>每日精选</block>
-			<image src="/static/images/demo/demo4.jpg" mode="widthFix"></image>
-		</card> -->
+		<!-- 顶部选项卡 -->
+		<scroll-view scroll-x class="border-bottom scroll-row " style="height: 80upx;" 
+		:scroll-into-view="scrollinto" scroll-with-animation>
+			<view class="scroll-row-item px-3 " @click="changeTab(index)"
+			style="height: 80upx;" v-for="(item,index) in tabBars" :key='index'
+			:class="tabIndex === index ? 'main-text-color':''" :id="'tab'+index">
+				<text class="font-md">{{item.name}}</text>
+			</view>
+		</scroll-view>
+		<swiper :duration="150" :current="tabIndex" :style="'height:'+scrollH+'px;'"
+		@change="onChangeTab">
+			<swiper-item v-for="(item,index) in tabBars" :key="index">
+				<scroll-view scroll-y="true" :style="'height:'+scrollH+'px;'">
+					
+				
 		
-		<!-- 公共列表组件 -->
-		<view class="row j-sb">
-			<block v-for="(item,index) in commonList" :key="index">
-				<common-list :item="item" :index="index"></common-list>
-			</block>
-		</view>
-		
+					<!-- 轮播图组件 -->
+					<swiper-image :resdata="swipers"></swiper-image>
+					<!-- 分类图标组件 -->
+					<index-nav :resdata="indexnavs"></index-nav>
+					<!-- 分割线组件 -->
+					<divider></divider>
+					<!-- 三图片广告展示 -->
+					<three-adv :resdata="threeadv"></three-adv>
+					<divider />
+					<!-- 基础卡片组件 -->
+					<card headTitle="每日精选" bodyCover="/static/images/demo/demo4.jpg"></card>
+					<!-- 扩展 -->
+					<!-- <card :showhead="false">
+						<block slot='title'>每日精选</block>
+						<image src="/static/images/demo/demo4.jpg" mode="widthFix"></image>
+					</card> -->
+					
+					<!-- 公共列表组件 -->
+					<view class="row j-sb">
+						<block v-for="(item,list) in commonList" :key="list">
+							<common-list :item="item" :index="list"></common-list>
+						</block>
+					</view>
+					
+				</scroll-view>
+			</swiper-item>
+		</swiper>
 	</view>
 </template>
 
@@ -43,6 +62,21 @@
 		},
 		data() {
 			return {
+				scrollinto:"",
+				scrollH:500,
+				tabIndex:0,
+				tabBars:[
+					{name:'推荐'},
+					{name:'体育'},
+					{name:'科技'},
+					{name:'财经'},
+					{name:'新闻'},
+					{name:'历史'},
+					{name:'军事'},
+					{name:'电脑'},
+					{name:'电影'},
+					{name:'图书'}
+				],
 				swipers:[
 					{src:"../../static/images/demo/demo4.jpg"},
 					{src:"../../static/images/demo/demo4.jpg"},
@@ -85,10 +119,27 @@
 			}
 		},
 		onLoad() {
-
+			//获取可视区域高度
+			uni.getSystemInfo({
+				success: (res) => {
+					this.scrollH=res.windowHeight - uni.upx2px(80)
+					
+				}
+			})
 		},
 		methods: {
-
+			// 切换选项卡
+			changeTab(index){
+				if (this.tabIndex === index){
+					return;
+				}
+				this.tabIndex = index
+				this.scrollinto="tab"+index
+			},
+			//监听滑动
+			onChangeTab(e){
+				this.changeTab(e.detail.current)
+			}
 		}
 	}
 </script>

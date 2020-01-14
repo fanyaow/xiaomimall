@@ -5,7 +5,7 @@
 			<block v-for="(item,index) in resdata" :key="index">
 				<swiper-item>
 					<view class="swiper-item" @tap="event(item)">
-						<image :src="item.src" lazy-load style="height: 350upx;"></image>
+						<image :src="item.src" lazy-load style="height: 400upx;"></image>
 					</view>
 				</swiper-item>
 			</block>
